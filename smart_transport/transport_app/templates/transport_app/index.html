@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TN Bus Live Tracker</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'transport_app/css/style.css' %}"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="bus-emoji">🚌</span>
+        <div>
+          <div class="brand-name">TN Bus Live Tracker</div>
+          <div class="brand-sub">GPS · Weather · Road Routes · Tamil Nadu</div>
+        </div>
+      </div>
+      <div class="live-badge"><span class="pulse"></span> LIVE</div>
+    </div>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="search-inner">
+      <div class="input-wrap">
+        <span class="dot green"></span>
+        <input id="source" type="text" placeholder="From (e.g. Coimbatore)" list="stops-list" autocomplete="off"/>
+      </div>
+      <div class="swap-wrap">
+        <div class="vline"></div>
+        <button class="swap" onclick="swapInputs()">⇅</button>
+        <div class="vline"></div>
+      </div>
+      <div class="input-wrap">
+        <span class="dot red"></span>
+        <input id="destination" type="text" placeholder="To (e.g. Salem)" list="stops-list" autocomplete="off"/>
+      </div>
+      <button class="go-btn" onclick="doSearch()">Search →</button>
+    </div>
+    <datalist id="stops-list"></datalist>
+  </div>
+
+  <!-- Map -->
+  <div id="map"></div>
+
+  <div class="body-wrap">
+    <div class="main-panel">
+
+      <!-- Search results -->
+      <div id="search-section" class="hidden">
+        <div class="panel-title">
+          <button class="back-btn" onclick="showLive()">← Back</button>
+          <span id="search-label"></span>
+          <span id="search-count" class="badge"></span>
+        </div>
+        <div id="search-results"></div>
+      </div>
+
+      <!-- Live board -->
+      <div id="live-section">
+        <div class="panel-title">
+          <span>🟢 Live Bus Positions</span>
+          <span class="timer" id="timer">Refreshes in 30s</span>
+        </div>
+        <div id="live-list"></div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Weather Widget — OpenWeatherMap API -->
+      <div class="side-card">
+        <div class="side-title">🌤 Weather at Stop</div>
+        <div class="weather-search">
+          <input id="weather-stop" type="text" placeholder="Enter stop name" list="stops-list"/>
+          <button onclick="loadWeather()">Go</button>
+        </div>
+        <div id="weather-result"></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-title">Quick Routes</div>
+        <div id="quick-routes"></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-title">All Stops</div>
+        <div id="all-stops"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{% static 'transport_app/js/app.js' %}"></script>
+</body>
+</html>
