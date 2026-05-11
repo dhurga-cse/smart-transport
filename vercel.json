@@ -1,18 +1,18 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "smart_transport/smart_transport/wsgi.py",
+      "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.11"
+        "maxLambdaSize": "15mb"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "smart_transport/smart_transport/wsgi.py"
+      "dest": "api/index.py"
     }
   ]
 }
