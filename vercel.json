@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "cd smart_transport && pip install -r requirements.txt && python manage.py collectstatic --noinput",
   "builds": [
     {
       "src": "api/index.py",
@@ -8,6 +9,13 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "api/index.py" }
+    {
+      "src": "/static/(.*)",
+      "dest": "/smart_transport/staticfiles/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "api/index.py"
+    }
   ]
 }
